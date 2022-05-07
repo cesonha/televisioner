@@ -1,6 +1,17 @@
 <resources>
+    <!--    Strings related to app, tabs, and bottom nav bar-->
     <string name="app_name">Televisioner</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_favorites">Favorites</string>
+    <string name="title_series">Series</string>
+    <string name="title_episode_details">Episode</string>
+
+    <string name="empty_favorites">You don\'t have any favorite series.</string>
+
+    <string name="episode_season_and_number">Season %1$d Episode %2$d</string>
+    <string name="episode_number">E%1$d: %2$s</string>
+    <string name="season">Season %1$d</string>
+
+    <!--    Strings related to content description-->
+    <string name="content_description_favorite_button">Add series to favorites</string>
+    <string name="content_description_season_spinner">Select season to load episodes</string>
 </resources>
