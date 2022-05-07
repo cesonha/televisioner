@@ -1,6 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_series">
+
+    <fragment
+        android:id="@+id/navigation_series"
+        android:name="dev.cesonha.televisioner.presentation.series.list.SeriesListFragment"
+        android:label="@string/title_series"
+        tools:layout="@layout/fragment_series">
+        <action
+            android:id="@+id/action_navigation_series_to_navigation_series_details"
+            app:destination="@id/navigation_series_details" />
+        <action
+            android:id="@+id/action_navigation_series_to_navigation_episode"
+            app:destination="@id/navigation_episode" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_favorites"
+        android:name="dev.cesonha.televisioner.presentation.favorites.FavoritesFragment"
+        android:label="@string/title_favorites"
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_navigation_favorites_to_navigation_series_details"
+            app:destination="@id/navigation_series_details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_series_details"
+        android:name="dev.cesonha.televisioner.presentation.series.details.SeriesDetailsFragment"
+        android:label="@string/title_favorites"
+        tools:layout="@layout/fragment_series_details">
+
+        <argument
+            android:name="seriesId"
+            android:defaultValue="0"
+            app:argType="integer" />
+
+        <action
+            android:id="@+id/action_navigation_series_details_to_navigation_episode"
+            app:destination="@id/navigation_episode" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_episode"
+        android:name="dev.cesonha.televisioner.presentation.episode.EpisodeFragment"
+        android:label="@string/title_episode_details"
+        tools:layout="@layout/fragment_episode">
+        <argument
+            android:name="episodeId"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>
