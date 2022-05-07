@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class GetFavoriteSeriesUseCase @Inject constructor(private val repository: FavoriteSeriesRepository) {
 
-    suspend operator fun invoke(): List<Series> {
+    suspend operator fun invoke(): Result<List<Series>> {
         return repository.getFavoriteSeries()
     }
 }

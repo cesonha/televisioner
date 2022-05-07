@@ -3,6 +3,8 @@ package dev.cesonha.televisioner.data.datasources
 import dev.cesonha.televisioner.data.api.TvMazeService
 import dev.cesonha.televisioner.domain.entities.Episode
 import dev.cesonha.televisioner.domain.entities.Series
+import dev.cesonha.televisioner.domain.exceptions.HttpRequestException
+import dev.cesonha.televisioner.domain.exceptions.NullBodyException
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -10,15 +12,59 @@ class SeriesDataSource @Inject constructor(
     private val service: TvMazeService
 ) {
 
-    suspend fun getEpisodeDetails(episodeId: Int): Response<Episode> {
-        return service.getEpisodeById(episodeId)
+    suspend fun getEpisodeDetails(episodeId: Int): Result<Episode> {
+        val response: Response<Episode>
+
+        try {
+            response = service.getEpisodeById(episodeId)
+        } catch (throwable: Throwable) {
+            return Result.failure(throwable)
+        }
+
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Result.success(it)
+            }
+            return Result.failure(NullBodyException())
+        } else {
+            return Result.failure(HttpRequestException(response.code()))
+        }
     }
 
-    suspend fun getSeriesList(page: Int): Response<List<Series>> {
-        return service.getSeriesByPage(page)
+    suspend fun getSeriesList(page: Int): Result<List<Series>> {
+        val response: Response<List<Series>>
+
+        try {
+            response = service.getSeriesByPage(page)
+        } catch (throwable: Throwable) {
+            return Result.failure(throwable)
+        }
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Result.success(it)
+            }
+            return Result.failure(NullBodyException())
+        } else {
+            return Result.failure(HttpRequestException(response.code()))
+        }
     }
 
-    suspend fun getSeriesDetails(seriesId: Int): Response<Series> {
-        return service.getSeriesDetailsById(seriesId)
+    suspend fun getSeriesDetails(seriesId: Int): Result<Series> {
+        val response: Response<Series>
+
+        try {
+            response = service.getSeriesDetailsById(seriesId)
+        } catch (throwable: Throwable) {
+            return Result.failure(throwable)
+        }
+
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Result.success(it)
+            }
+            return Result.failure(NullBodyException())
+        } else {
+            return Result.failure(HttpRequestException(response.code()))
+        }
     }
 }

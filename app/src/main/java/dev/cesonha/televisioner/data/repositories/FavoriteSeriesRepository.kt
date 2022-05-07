@@ -9,19 +9,19 @@ class FavoriteSeriesRepository @Inject constructor(
     private val datasource: FavoriteSeriesDataSource
 ) : IFavoriteSeriesRepository {
 
-    override suspend fun getFavoriteSeries(): List<Series> {
+    override suspend fun getFavoriteSeries(): Result<List<Series>> {
         return datasource.getFavoriteSeries()
     }
 
-    override suspend fun addFavoriteSeries(series: Series) {
-        datasource.addFavoriteSeries(series)
+    override suspend fun addFavoriteSeries(series: Series): Result<Unit> {
+        return datasource.addFavoriteSeries(series)
     }
 
-    override suspend fun removeFavoriteSeries(series: Series) {
-        datasource.removeFavoriteSeries(series)
+    override suspend fun removeFavoriteSeries(series: Series): Result<Unit> {
+        return datasource.removeFavoriteSeries(series)
     }
 
-    override suspend fun isFavoriteSeries(seriesId: Int): Boolean {
+    override suspend fun isFavoriteSeries(seriesId: Int): Result<Boolean> {
         return datasource.isFavoriteSeries(seriesId)
     }
 }

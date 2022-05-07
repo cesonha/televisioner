@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class GetSeriesDetailsUseCase @Inject constructor(private val repository: SeriesRepository) {
 
-    suspend operator fun invoke(seriesId: Int): Series {
-        return repository.getSeriesDetails(seriesId).body()!!
+    suspend operator fun invoke(seriesId: Int): Result<Series> {
+        return repository.getSeriesDetails(seriesId)
     }
 }

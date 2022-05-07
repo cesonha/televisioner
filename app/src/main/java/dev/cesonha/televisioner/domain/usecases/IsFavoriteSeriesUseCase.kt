@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 class IsFavoriteSeriesUseCase @Inject constructor(private val repository: FavoriteSeriesRepository) {
 
-    suspend operator fun invoke(seriesId: Int): Boolean {
+    suspend operator fun invoke(seriesId: Int): Result<Boolean> {
         return repository.isFavoriteSeries(seriesId)
     }
 }
