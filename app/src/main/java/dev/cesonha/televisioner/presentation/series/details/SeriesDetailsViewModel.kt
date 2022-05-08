@@ -49,7 +49,7 @@ class SeriesDetailsViewModel @Inject constructor(
                     _state.postValue(SeriesDetailsFragmentState.Success(seriesWithDetails))
                 }
             } else {
-                _state.postValue(SeriesDetailsFragmentState.Error(""))
+                _state.postValue(SeriesDetailsFragmentState.Error(result.exceptionOrNull()?.message ?: "Unknown error"))
             }
         }
     }

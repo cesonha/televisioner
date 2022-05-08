@@ -35,7 +35,7 @@ class EpisodeViewModel @Inject constructor(private val getEpisodeDetails: GetEpi
                 }
             } else {
                 // use error msg
-                _state.postValue(EpisodeFragmentState.Error(result.exceptionOrNull().toString()))
+                _state.postValue(EpisodeFragmentState.Error(result.exceptionOrNull()?.message ?: "Unknown error"))
             }
         }
     }

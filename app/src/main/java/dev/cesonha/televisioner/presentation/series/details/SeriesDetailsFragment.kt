@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -106,6 +107,7 @@ class SeriesDetailsFragment : Fragment() {
                     binding.seriesDetailsScroll.visibility = View.VISIBLE
                 }
                 is SeriesDetailsViewModel.SeriesDetailsFragmentState.Error -> {
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                 }
                 else -> {
                 }

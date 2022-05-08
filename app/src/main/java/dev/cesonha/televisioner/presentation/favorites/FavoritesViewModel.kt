@@ -35,7 +35,7 @@ class FavoritesViewModel @Inject constructor(
                     _state.postValue(FavoritesFragmentState.Success(favoriteSeries))
                 }
             } else {
-                _state.postValue(FavoritesFragmentState.Error("a"))
+                _state.postValue(FavoritesFragmentState.Error(result.exceptionOrNull()?.message ?: "Unknown error"))
             }
         }
     }

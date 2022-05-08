@@ -24,16 +24,7 @@
     <string name="content_description_season_spinner">Select season to load episodes</string>
     <string name="content_description_series_poster">Series poster image</string>
 
-    <!-- Strings related to authentication-->
-    <string name="error_msg_no_biometric_hardware">Series poster image1</string>
-    <string name="error_msg_biometric_hw_unavailable">Series poster image2</string>
-    <string name="error_msg_biometric_not_setup">Series poster image3</string>
-
-    <string name="auth_title">Series poster image4</string>
-    <string name="auth_subtitle">Series poster image5</string>
-    <string name="auth_description">Series poster image6</string>
-
-    <string name="error_auth_with_message">Series poster image7 %1$s</string>
-    <string name="error_auth_failed">Series poster image8</string>
+    <!-- Strings related to errors-->
+    <string name="show_error">Error: %1$s - try again later</string>
 
 </resources>
