@@ -1,17 +1,39 @@
 <resources>
-    <!--    Strings related to app, tabs, and bottom nav bar-->
+    <!--    General purpose strings -->
     <string name="app_name">Televisioner</string>
-    <string name="title_favorites">Favorites</string>
+
+    <!--    String related to Series List Fragment-->
     <string name="title_series">Series</string>
-    <string name="title_episode_details">Episode</string>
+    <string name="search_view_hint_text">Search by series name</string>
 
-    <string name="empty_favorites">You don\'t have any favorite series.</string>
-
-    <string name="episode_season_and_number">Season %1$d Episode %2$d</string>
-    <string name="episode_number">E%1$d: %2$s</string>
+    <!--    Strings related to Series Details Fragment-->
     <string name="season">Season %1$d</string>
+    <string name="episode_number">E%1$d: %2$s</string>
+    <string name="time_and_days">%1$s - %2$s</string>
+
+    <!--    Strings related to Episode Fragment-->
+    <string name="title_episode_details">Episode</string>
+    <string name="episode_season_and_number">Season %1$d Episode %2$d</string>
+
+    <!--    Strings related to Favorites Fragment-->
+    <string name="title_favorites">Favorites</string>
+    <string name="empty_favorites">You don\'t have any favorite series.</string>
 
     <!--    Strings related to content description-->
     <string name="content_description_favorite_button">Add series to favorites</string>
     <string name="content_description_season_spinner">Select season to load episodes</string>
+    <string name="content_description_series_poster">Series poster image</string>
+
+    <!-- Strings related to authentication-->
+    <string name="error_msg_no_biometric_hardware">Series poster image1</string>
+    <string name="error_msg_biometric_hw_unavailable">Series poster image2</string>
+    <string name="error_msg_biometric_not_setup">Series poster image3</string>
+
+    <string name="auth_title">Series poster image4</string>
+    <string name="auth_subtitle">Series poster image5</string>
+    <string name="auth_description">Series poster image6</string>
+
+    <string name="error_auth_with_message">Series poster image7 %1$s</string>
+    <string name="error_auth_failed">Series poster image8</string>
+
 </resources>
