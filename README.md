@@ -15,7 +15,7 @@ I wanted to use the new Paging 3 lib but I thought a simpler in-house approach w
 
 **- Allow users to search series by name.**
 
-I had some doubts about the best way and how this search should work. I started implementing just a filter on the series that were already loaded but then I implemented the Tv Maze search endpoint and decided to show a popup view with a list of the results, separated from the 'feed' paginated list.
+I had some doubts about the best way and how this search should work. I've started implementing just a filter on the series that were already loaded but then I implemented the Tv Maze search endpoint and decided to show a popup view with a list of the results, separated from the 'feed' paginated list.
 
 **- The listing and search views must show at least the name and poster image of the
 series.**
@@ -61,9 +61,9 @@ I wanted to implement the PIN/biometrics authentication feature as well but I di
 
 I've decided to use MVVM with LiveData and sealed classes for the UI states.
 
-I've also chose to implement a somewhat clean architecture, even though I didn't defined a lot of interfaces, because it was probably overengineering for this kind of project, since it almost have no business rules between the layers, but you can see that it made it a lot easier to test and to deal with errors in the most suitable place (for example, dealing with http errors in the datasource). It also helped converting from the Dao 'FavoriteSeries' model to the Domain Series model between the datasource and all the other layers, this way only FavoriteSeriesDataSource needs to know convert FavoriteSeries to Series, but I could use an Adapter between those two as well.
+I've also chose to implement a somewhat clean architecture, even though I didn't define a lot of interfaces, because it was probably overengineering for this kind of project, since it almost have no business rules between the layers, but you can see that it made it a lot easier to test and to deal with errors in the most suitable place (for example, dealing with http errors in the datasource). It also helped converting from the Dao 'FavoriteSeries' model to the Domain Series model between the datasource and all the other layers, this way only FavoriteSeriesDataSource needs to know convert FavoriteSeries to Series, but I could use an Adapter between those two as well.
 
-I didn't went full clean architecture because I think most of the times it is easy to overengineer when using this approach, I think it is about the balance between separating your layers properly and understanding the pros and cons of how much are you layering and abstracting.
+I didn't went full clean architecture because I think most of the times it is easy to overengineer when using this approach, I think it is about the balance between separating your layers properly and understanding the pros and cons of how much you are layering and abstracting.
 
 #### UI
 ##### Improvements
