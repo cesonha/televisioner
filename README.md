@@ -1,7 +1,7 @@
 # Televisioner [![Build Status](https://app.bitrise.io/app/270b50a3d955219b/status.svg?token=Yi6MwS4ILWHdmtKpMn6ACQ&branch=main)](https://app.bitrise.io/app/270b50a3d955219b)
 ##### Cesar Cano de Oliveira
 
-Televisioner is an app developed for the Jobsity Android Challenge
+Televisioner is an app that lists series and episodes information, allowing you to search by name and manage a favorites list.
 
 The universal apk is located at the .distribution folder, located at the root of the project.
 
