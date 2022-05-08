@@ -8,7 +8,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.cesonha.televisioner.core.di.IoDispatcher
 import dev.cesonha.televisioner.domain.entities.Series
 import dev.cesonha.televisioner.domain.usecases.SearchSeriesUseCase
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
