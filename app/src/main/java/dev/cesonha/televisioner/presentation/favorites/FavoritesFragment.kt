@@ -14,15 +14,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.cesonha.televisioner.R
 import dev.cesonha.televisioner.core.Constants.Companion.SERIES_ID_ARG
 import dev.cesonha.televisioner.databinding.FragmentFavoritesBinding
+import dev.cesonha.televisioner.presentation.favorites.FavoritesViewModel.FavoritesFragmentState
 import dev.cesonha.televisioner.presentation.series.list.SeriesAdapter
 
 @AndroidEntryPoint
 class FavoritesFragment : Fragment() {
 
     private var _binding: FragmentFavoritesBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     private lateinit var adapter: SeriesAdapter
@@ -38,39 +36,40 @@ class FavoritesFragment : Fragment() {
         val root: View = binding.root
 
         val navController = findNavController()
-        adapter = SeriesAdapter {
+        adapter = SeriesAdapter(onSeriesTapListener = {
             val bundle = bundleOf(SERIES_ID_ARG to it.id)
             navController.navigate(
                 R.id.action_navigation_favorites_to_navigation_series_details,
                 bundle
             )
-        }
+        }, loadMoreListener = {
+        })
 
         val recyclerView = binding.favoritesRecyclerView
         recyclerView.layoutManager = GridLayoutManager(context, 3, RecyclerView.VERTICAL, false)
         recyclerView.adapter = adapter
 
-        viewModel.series.observe(viewLifecycleOwner) {
-            adapter.setSeries(it)
-        }
-
         viewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
-                FavoritesViewModel.FavoritesFragmentState.LOADING -> {
+                is FavoritesFragmentState.Loading -> {
                     binding.favoritesProgressBar.visibility = View.VISIBLE
                     binding.emptyFavoritesTextView.visibility = View.INVISIBLE
                     binding.favoritesRecyclerView.visibility = View.INVISIBLE
                 }
-                FavoritesViewModel.FavoritesFragmentState.SUCCESS -> {
+                is FavoritesFragmentState.Success -> {
+                    state.data?.let {
+                        adapter.setSeries(it)
+                    }
                     binding.favoritesRecyclerView.visibility = View.VISIBLE
                     binding.emptyFavoritesTextView.visibility = View.INVISIBLE
                     binding.favoritesProgressBar.visibility = View.INVISIBLE
                 }
-                FavoritesViewModel.FavoritesFragmentState.EMPTY -> {
+                is FavoritesFragmentState.Empty -> {
                     binding.emptyFavoritesTextView.visibility = View.VISIBLE
                     binding.favoritesRecyclerView.visibility = View.INVISIBLE
                     binding.favoritesProgressBar.visibility = View.INVISIBLE
-                } else -> {
+                }
+                is FavoritesFragmentState.Error -> {
                 }
             }
         }

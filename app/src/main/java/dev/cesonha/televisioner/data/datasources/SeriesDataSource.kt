@@ -2,6 +2,7 @@ package dev.cesonha.televisioner.data.datasources
 
 import dev.cesonha.televisioner.data.api.TvMazeService
 import dev.cesonha.televisioner.domain.entities.Episode
+import dev.cesonha.televisioner.domain.entities.SearchResult
 import dev.cesonha.televisioner.domain.entities.Series
 import dev.cesonha.televisioner.domain.exceptions.HttpRequestException
 import dev.cesonha.televisioner.domain.exceptions.NullBodyException
@@ -42,6 +43,24 @@ class SeriesDataSource @Inject constructor(
         if (response.isSuccessful) {
             response.body()?.let {
                 return Result.success(it)
+            }
+            return Result.failure(NullBodyException())
+        } else {
+            return Result.failure(HttpRequestException(response.code()))
+        }
+    }
+
+    suspend fun getSeriesFromQuery(query: String): Result<List<Series>> {
+        val response: Response<List<SearchResult>>
+
+        try {
+            response = service.getSeriesWithQuery(query)
+        } catch (throwable: Throwable) {
+            return Result.failure(throwable)
+        }
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Result.success(it.map { searchResult -> searchResult.series })
             }
             return Result.failure(NullBodyException())
         } else {

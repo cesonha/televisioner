@@ -9,47 +9,25 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import dev.cesonha.televisioner.R
+import dev.cesonha.televisioner.core.Constants.Companion.NO_IMAGE_URL
 import dev.cesonha.televisioner.domain.entities.Series
 
 class SeriesAdapter(
-    private var currentSeries: MutableList<Series> = mutableListOf(),
-    private var loadedSeries: MutableList<Series> = mutableListOf(),
-    private val onSeriesTapListener: (series: Series) -> Unit
+    private var series: MutableList<Series> = mutableListOf(),
+    private val onSeriesTapListener: (series: Series) -> Unit,
+    private val loadMoreListener: () -> Unit
 ) :
     RecyclerView.Adapter<SeriesAdapter.ViewHolder>() {
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addSeries(newSeries: List<Series>) {
-        val oldNumberOfElements = loadedSeries.size
-        loadedSeries.addAll(newSeries)
-        currentSeries = loadedSeries
-        notifyDataSetChanged()
-//        notifyItemRangeInserted(
-//            oldNumberOfElements,
-//            oldNumberOfElements + newSeries.size
-//        )
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
     fun clearData() {
-        loadedSeries = mutableListOf()
-        currentSeries = mutableListOf()
+        series = mutableListOf()
         notifyDataSetChanged()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun setSeries(series: List<Series>) {
-        currentSeries = series.toMutableList()
-        notifyDataSetChanged()
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun filterSeries(filter: String) {
-        currentSeries = if (filter.isEmpty()) {
-            loadedSeries
-        } else {
-            loadedSeries.filter { it.name.lowercase().contains(filter.lowercase()) }.toMutableList()
-        }
+        this.series = series.toMutableList()
         notifyDataSetChanged()
     }
 
@@ -61,7 +39,7 @@ class SeriesAdapter(
 
         holder.itemView.setOnClickListener {
             if (holder.adapterPosition != RecyclerView.NO_POSITION) {
-                onSeriesTapListener.invoke(currentSeries[holder.adapterPosition])
+                onSeriesTapListener.invoke(series[holder.adapterPosition])
             }
         }
 
@@ -69,12 +47,16 @@ class SeriesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textView.text = currentSeries[position].name
-        Picasso.get().load(currentSeries[position].imageData.originalUrl).into(holder.imageView)
+        holder.textView.text = series[position].name
+        Picasso.get().load(series[position].imageData?.originalUrl ?: NO_IMAGE_URL).into(holder.imageView)
+
+        if (position == series.size - 1) {
+            loadMoreListener()
+        }
     }
 
     override fun getItemCount(): Int {
-        return currentSeries.size
+        return series.size
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

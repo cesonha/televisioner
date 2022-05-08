@@ -1,5 +1,6 @@
 package dev.cesonha.televisioner.data.datasources
 
+import dev.cesonha.televisioner.core.Constants.Companion.NO_IMAGE_URL
 import dev.cesonha.televisioner.data.room.dao.FavoriteSeriesDao
 import dev.cesonha.televisioner.data.room.entities.FavoriteSeries
 import dev.cesonha.televisioner.domain.entities.Series
@@ -9,7 +10,9 @@ class FavoriteSeriesDataSource @Inject constructor(private val dao: FavoriteSeri
 
     fun getFavoriteSeries(): Result<List<Series>> {
         return try {
-            Result.success(dao.getFavoriteSeries().map { Series(it.seriesId, it.name, it.posterUrl) })
+            Result.success(
+                dao.getFavoriteSeries().map { Series(it.seriesId, it.name, it.posterUrl) }
+            )
         } catch (throwable: Throwable) {
             Result.failure(throwable)
         }
@@ -28,7 +31,7 @@ class FavoriteSeriesDataSource @Inject constructor(private val dao: FavoriteSeri
             dao.addFavoriteSeries(
                 FavoriteSeries(
                     favoriteSeries.id, favoriteSeries.id,
-                    favoriteSeries.name, favoriteSeries.imageData.originalUrl
+                    favoriteSeries.name, favoriteSeries.imageData?.originalUrl ?: NO_IMAGE_URL
                 )
             )
         } catch (throwable: Throwable) {
@@ -42,7 +45,7 @@ class FavoriteSeriesDataSource @Inject constructor(private val dao: FavoriteSeri
             dao.removeFavoriteSeries(
                 FavoriteSeries(
                     favoriteSeries.id, favoriteSeries.id,
-                    favoriteSeries.name, favoriteSeries.imageData.mediumQualityUrl
+                    favoriteSeries.name, favoriteSeries.imageData?.mediumQualityUrl ?: NO_IMAGE_URL
                 )
             )
         } catch (throwable: Throwable) {

@@ -1,4 +1,5 @@
 package dev.cesonha.televisioner.domain.entities
 
-class SearchResult {
-}
+import com.google.gson.annotations.SerializedName
+
+data class SearchResult(@SerializedName("show") val series: Series)
