@@ -1,4 +1,4 @@
-# Televisioner
+# Televisioner [![Build Status](https://app.bitrise.io/app/270b50a3d955219b/status.svg?token=Yi6MwS4ILWHdmtKpMn6ACQ&branch=main)](https://app.bitrise.io/app/270b50a3d955219b)
 ##### Cesar Cano de Oliveira
 
 Televisioner is an app developed for the Jobsity Android Challenge
