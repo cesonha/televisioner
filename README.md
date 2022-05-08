@@ -10,9 +10,13 @@ I will briefly comment on and describe my thought process while implementing eac
 ### Mandatory features
 - List all of the series contained in the API used by the paging scheme provided by the
 API.
+I wanted to use the new Paging 3 lib but I thought a simpler in-house approach would be ok for this case.
+
 - Allow users to search series by name.
+I had some doubts about the best way and how this search should work. I started implementing just a filter on the series that were already loaded but then I implemented the Tv Maze search endpoint and decided to show a popup view with a list of the results, separated from the 'feed' paginated list.
 - The listing and search views must show at least the name and poster image of the
 series.
+The posters size difference in some series was a cumbersome issue, proper resize/working alongside the designers would make for a better UI/solution.
 - After clicking on a series, the application should show the details of the series, showing
 the following information:
     - Name
@@ -21,12 +25,15 @@ the following information:
     - Genres
     - Summary
     - List of episodes separated by season
+I wanted to make a better UI for this, but went for a simple but working one.
+
 - After clicking on an episode, the application should show the episode’s information, including:
     - Name
     - Number
     - Season
     - Summary
     - Image, if there is one
+No comments on this one :)
 
 ### Bonus feature implemented
 
@@ -52,11 +59,23 @@ I didn't went full clean architecture because I think most of the times it is ea
 
 #### UI
 ##### Improvements
+If I had more time I would work to better preserve state while user navigates between the tabs and screens of the app. I'm not satisfied with the loading time and I'd probably try some caching for the retrofit calls to further optimize the UX. The search bar was not my favorite part but I thought it was good to implement for showing some different types of views. I really enjoyed doing the series details screen and favorite button/list, I think it turned out really good.
+
+#### Tests
+I didn't have the time for implementing some unit tests, I started them with little time left but had some minor issues with coroutines and live data testing boilerplate/setup, but I'm pretty sure injecting the dispatchers and having the dependency injection working as it is as well as the codebase was layered, the tests would be really nice to implement :)
 
 #### Other
 
 ##### Git/CI
 Since I was working by myself and I didn't have much time, I started the repository but didn't follow good commit/PR practices, but I enjoy having small-medium PRs with context and commits following the Karma commit style (http://karma-runner.github.io/6.3/dev/git-commit-msg.html) or similar, with a trunk based development even though I have no problems with git flow. I've used GitHub private repo and and for the CI I've decided to use Bitrise just to demonstrante a simple continuous integration pipeline with a trigger for PRs merging into main where the app is built and the linter and unit tests run. I've also configured a git hook for the repo to avoid commits that do not follow the style.
 
-
+#### Libs used
+Just in case you guys need a faster version of the technologies/dependencies and libs that I've used:
+- Jetpack Navigation to coordinate tabs and screens
+- LiveData to save data in ViewModels
+- Room for persisting the favorite series data
+- Retrofit for Http requests to the Tv Maze Api
+- Coroutines for async calls
+- Hilt for dependency injection
+- Picasso for image loading and automatic cache
 
