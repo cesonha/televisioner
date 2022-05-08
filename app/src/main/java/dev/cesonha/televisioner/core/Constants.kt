@@ -9,5 +9,7 @@ class Constants {
         const val EPISODE_ID_ARG = "episodeId"
 
         const val APP_DATABASE = "televisioner-database"
+
+        const val NO_IMAGE_URL = "https://www.fcmlindia.com/images/fifty-days-campaign/no-image.jpg"
     }
 }

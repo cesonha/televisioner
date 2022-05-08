@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import dev.cesonha.televisioner.R
+import dev.cesonha.televisioner.core.Constants.Companion.NO_IMAGE_URL
 import dev.cesonha.televisioner.domain.entities.Episode
+import dev.cesonha.televisioner.domain.entities.ImageData
 import java.lang.Exception
 
 class EpisodesAdapter(
@@ -56,6 +58,9 @@ class EpisodesAdapter(
         )
 
         val pos = position
+        if (shownEpisodes[pos].image == null) {
+            shownEpisodes[pos].image = ImageData(NO_IMAGE_URL, NO_IMAGE_URL)
+        }
         Picasso.get().load(shownEpisodes[pos].image.mediumQualityUrl).into(
             holder.imageView,
             object : Callback {

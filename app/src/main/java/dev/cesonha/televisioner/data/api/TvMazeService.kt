@@ -1,6 +1,7 @@
 package dev.cesonha.televisioner.data.api
 
 import dev.cesonha.televisioner.domain.entities.Episode
+import dev.cesonha.televisioner.domain.entities.SearchResult
 import dev.cesonha.televisioner.domain.entities.Series
 import retrofit2.Response
 import retrofit2.http.GET
@@ -13,6 +14,11 @@ interface TvMazeService {
     suspend fun getSeriesByPage(
         @Query("page") page: Int
     ): Response<List<Series>>
+
+    @GET("search/shows")
+    suspend fun getSeriesWithQuery(
+        @Query("q") query: String
+    ): Response<List<SearchResult>>
 
     @GET("episodes/{episode-id}")
     suspend fun getEpisodeById(

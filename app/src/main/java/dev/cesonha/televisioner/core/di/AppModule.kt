@@ -9,13 +9,29 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import dev.cesonha.televisioner.core.Constants.Companion.APP_DATABASE
 import dev.cesonha.televisioner.data.api.TvMazeService
+import dev.cesonha.televisioner.data.datasources.FavoriteSeriesDataSource
+import dev.cesonha.televisioner.data.datasources.SeriesDataSource
+import dev.cesonha.televisioner.data.repositories.FavoriteSeriesRepository
+import dev.cesonha.televisioner.data.repositories.SeriesRepository
 import dev.cesonha.televisioner.data.room.AppDatabase
 import dev.cesonha.televisioner.data.room.dao.FavoriteSeriesDao
+import dev.cesonha.televisioner.domain.repositories.IFavoriteSeriesRepository
+import dev.cesonha.televisioner.domain.repositories.ISeriesRepository
 import retrofit2.Retrofit
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Provides
+    fun providesISeriesRepository(datasource: SeriesDataSource): ISeriesRepository {
+        return SeriesRepository(datasource)
+    }
+
+    @Provides
+    fun providesIFavoriteSeriesRepository(datasource: FavoriteSeriesDataSource): IFavoriteSeriesRepository {
+        return FavoriteSeriesRepository(datasource)
+    }
 
     @Provides
     fun providesAppDatabase(@ApplicationContext context: Context): AppDatabase {

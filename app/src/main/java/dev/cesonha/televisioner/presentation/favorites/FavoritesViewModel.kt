@@ -5,40 +5,48 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.cesonha.televisioner.core.di.IoDispatcher
 import dev.cesonha.televisioner.domain.entities.Series
 import dev.cesonha.televisioner.domain.usecases.GetFavoriteSeriesUseCase
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
-    private val getFavoriteSeries: GetFavoriteSeriesUseCase
+    private val getFavoriteSeries: GetFavoriteSeriesUseCase,
+    @IoDispatcher private val defaultDispatcher: CoroutineDispatcher
 ) :
     ViewModel() {
 
-    private val _series = MutableLiveData<List<Series>>()
-    val series: LiveData<List<Series>> = _series
-
-    private val _state = MutableLiveData(FavoritesFragmentState.LOADING)
-    val state: LiveData<FavoritesFragmentState> = _state
+    private val _state: MutableLiveData<FavoritesFragmentState<List<Series>>> =
+        MutableLiveData(FavoritesFragmentState.Loading())
+    val state: LiveData<FavoritesFragmentState<List<Series>>> = _state
 
     fun fetchFavoriteSeries() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val favoriteSeries = getFavoriteSeries()
-            if (favoriteSeries.isEmpty()) {
-                _state.postValue(FavoritesFragmentState.EMPTY)
+        viewModelScope.launch(defaultDispatcher) {
+
+            val result = getFavoriteSeries.execute()
+            if (result.isSuccess) {
+                val favoriteSeries = result.getOrNull() as List<Series>
+                if (favoriteSeries.isEmpty()) {
+                    _state.postValue(FavoritesFragmentState.Empty())
+                } else {
+                    _state.postValue(FavoritesFragmentState.Success(favoriteSeries))
+                }
             } else {
-                _series.postValue(favoriteSeries)
-                _state.postValue(FavoritesFragmentState.SUCCESS)
+                _state.postValue(FavoritesFragmentState.Error("a"))
             }
         }
     }
 
-    enum class FavoritesFragmentState {
-        LOADING,
-        SUCCESS,
-        EMPTY,
-        ERROR
+    sealed class FavoritesFragmentState<T>(
+        val data: T? = null,
+        val message: String? = null
+    ) {
+        class Success<T>(data: T) : FavoritesFragmentState<T>(data)
+        class Error<T>(message: String, data: T? = null) : FavoritesFragmentState<T>(data, message)
+        class Loading<T> : FavoritesFragmentState<T>()
+        class Empty<T> : FavoritesFragmentState<T>()
     }
 }

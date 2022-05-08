@@ -18,6 +18,10 @@ class SeriesRepository @Inject constructor(
         return datasource.getSeriesList(page)
     }
 
+    override suspend fun searchSeries(query: String): Result<List<Series>> {
+        return datasource.getSeriesFromQuery(query)
+    }
+
     override suspend fun getSeriesDetails(seriesId: Int): Result<Series> {
         return datasource.getSeriesDetails(seriesId)
     }

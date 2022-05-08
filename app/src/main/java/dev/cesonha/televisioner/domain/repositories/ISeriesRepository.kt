@@ -9,5 +9,7 @@ interface ISeriesRepository {
 
     suspend fun getSeriesList(page: Int): Result<List<Series>>
 
+    suspend fun searchSeries(query: String): Result<List<Series>>
+
     suspend fun getSeriesDetails(seriesId: Int): Result<Series>
 }
