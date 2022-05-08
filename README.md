@@ -65,6 +65,9 @@ I've also chose to implement a somewhat clean architecture, even though I didn't
 
 I didn't go full clean architecture because I think most of the times it is easy to overengineer when using this approach, I think it is about the balance between separating your layers properly and understanding the pros and cons of how much you are layering and abstracting.
 
+#### Overall improvements
+I would complete the sealed classes for UI states (couldnt finish the refactor), handle the errors in a better way, implement unit tests and UI tests using Espresso, make sure the app has good Talkback support and high accessibility score (good color contrast, font size, etc), and that the UI works for any combination of screen size and density
+
 #### UI
 ##### Improvements
 If I had more time I would work to better preserve state while user navigates between the tabs and screens of the app. I'm not satisfied with the loading time and I'd probably try some caching for the retrofit calls to further optimize the UX. The search bar was not my favorite part but I thought it was good to implement for showing some different types of views. I really enjoyed doing the series details screen and favorite button/list, I think it turned out really good.
