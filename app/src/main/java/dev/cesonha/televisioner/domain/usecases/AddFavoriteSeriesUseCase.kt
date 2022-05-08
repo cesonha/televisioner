@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class AddFavoriteSeriesUseCase @Inject constructor(private val repository: FavoriteSeriesRepository) {
 
-    suspend operator fun invoke(series: Series) {
-        repository.addFavoriteSeries(series)
+    suspend operator fun invoke(series: Series): Result<Unit> {
+        return repository.addFavoriteSeries(series)
     }
 }

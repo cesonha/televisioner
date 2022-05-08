@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class GetSeriesListUseCase @Inject constructor(private val repository: SeriesRepository) {
 
-    suspend operator fun invoke(page: Int): List<Series> {
-        return repository.getSeriesList(page).body()!!
+    suspend operator fun invoke(page: Int): Result<List<Series>> {
+        return repository.getSeriesList(page)
     }
 }

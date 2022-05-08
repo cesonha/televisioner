@@ -4,11 +4,11 @@ import dev.cesonha.televisioner.domain.entities.Series
 
 interface IFavoriteSeriesRepository {
 
-    suspend fun getFavoriteSeries(): List<Series>
+    suspend fun getFavoriteSeries(): Result<List<Series>>
 
-    suspend fun addFavoriteSeries(series: Series)
+    suspend fun addFavoriteSeries(series: Series): Result<Unit>
 
-    suspend fun removeFavoriteSeries(series: Series)
+    suspend fun removeFavoriteSeries(series: Series): Result<Unit>
 
-    suspend fun isFavoriteSeries(seriesId: Int): Boolean
+    suspend fun isFavoriteSeries(seriesId: Int): Result<Boolean>
 }
