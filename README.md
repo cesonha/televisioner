@@ -8,31 +8,39 @@ The universal apk is located at the .distribution folder, located at the root of
 ## Implemented features
 I will briefly comment on and describe my thought process while implementing each of one of them.
 ### Mandatory features
-- List all of the series contained in the API used by the paging scheme provided by the
-API.
+**- List all of the series contained in the API used by the paging scheme provided by the
+API.**
+
 I wanted to use the new Paging 3 lib but I thought a simpler in-house approach would be ok for this case.
 
-- Allow users to search series by name.
+**- Allow users to search series by name.**
+
 I had some doubts about the best way and how this search should work. I started implementing just a filter on the series that were already loaded but then I implemented the Tv Maze search endpoint and decided to show a popup view with a list of the results, separated from the 'feed' paginated list.
-- The listing and search views must show at least the name and poster image of the
-series.
+
+**- The listing and search views must show at least the name and poster image of the
+series.**
+
 The posters size difference in some series was a cumbersome issue, proper resize/working alongside the designers would make for a better UI/solution.
-- After clicking on a series, the application should show the details of the series, showing
+
+**- After clicking on a series, the application should show the details of the series, showing
 the following information:
     - Name
     - Poster
     - Days and time during which the series airs
     - Genres
     - Summary
-    - List of episodes separated by season
+    - List of episodes separated by season**
+    
 I wanted to make a better UI for this, but went for a simple but working one.
 
-- After clicking on an episode, the application should show the episode’s information, including:
+**- After clicking on an episode, the application should show the episode’s information, including:
     - Name
     - Number
     - Season
     - Summary
-    - Image, if there is one
+    - Image, if there is one**
+    
+   
 No comments on this one :)
 
 ### Bonus feature implemented
